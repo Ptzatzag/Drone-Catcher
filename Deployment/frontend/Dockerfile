@@ -11,4 +11,4 @@ COPY . .
 EXPOSE 8501
 
 # Set the default command to run the frontend app
-CMD ["streamlit", "run", "SLapp.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "DCapp.py", "--server.port=8501", "--server.address=0.0.0.0"]
