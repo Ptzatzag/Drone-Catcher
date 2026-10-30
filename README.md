@@ -86,6 +86,12 @@ The model configuration must match the checkpoint. The current implementation us
 - **No drones are detected:** Predictions below the confidence threshold are filtered out.
 - **A port is already in use:** Change the host port mapping in the Compose file.
 
+## Video prediction example
+
+Drone detection on a sample video using Mask R-CNN.
+
+https://github.com/user-attachments/assets/1e99f11f-87e6-46de-80b1-4bf211340fef
+
 ## License
 
 MIT License. See [LICENSE](LICENSE).
