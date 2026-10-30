@@ -1,0 +1,18 @@
+FROM python:3.10-slim
+# Set working directory in the container
+WORKDIR /app
+
+# Copy requirements first (for caching)
+COPY Deployment/app/requirements.txt .
+# Install Python dependenes
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+COPY model ./model
+COPY Deployment/app ./Deployment/app
+
+# Expose the port api will use
+EXPOSE 8000
+
+# Set the default command to run the api
+CMD ["uvicorn", "Deployment.app.main:app", "--host", "0.0.0.0","--port","8000"]
