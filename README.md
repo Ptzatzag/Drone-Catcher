@@ -26,7 +26,6 @@ Deployment/
 │   ├── SLapp.py
 │   └── requirements.txt
 ├── docker-compose.yml      # Build and run locally
-└── compose.deploy.yml      # Run published container images
 model/
 └── maskrcnn.py             # Model architecture and checkpoint loading
 LICENSE
