@@ -6,7 +6,7 @@ This repository contains the code needed to run inference. It was adapted from [
 
 ## Features
 
-- Upload JPG, JPEG, or PNG images.
+- Upload JPG, JPEG, PNG images, or mp4 videos.
 - Detect drones and display bounding boxes, confidence scores, and segmentation masks.
 - Inspect predictions as JSON.
 - Run the backend and frontend with Docker Compose.
