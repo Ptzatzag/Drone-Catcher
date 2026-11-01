@@ -30,23 +30,3 @@ jobs:
         run: |
           python -m pytest -q
 
-  publish:
-    needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      packages: write
-
-    strategy:
-      matrix:
-        include:
-          - image: drone-catcher
-            context: .
-            dockerfile: Deployment/app/Dockerfile
-
-          - image: drone-catcher
-            context: Deployment/frontend
-            dockerfile: Deployment/frontend/Dockerfile
-
