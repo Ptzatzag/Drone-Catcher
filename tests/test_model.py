@@ -10,7 +10,7 @@ def test_model_has_correct_number_of_classes(monkeypatch):
         "maskrcnn_resnet50_fpn",
         partial(maskrcnn.maskrcnn_resnet50_fpn, weights_backbone=None),
     )
-    model = maskrcnn.get_model(num_classes=3)
+    model = maskrcnn.get_model(num_classes=2)
 
-    assert model.roi_heads.box_predictor.cls_score.out_features == 3
-    assert model.roi_heads.mask_predictor.mask_fcn_logits.out_channels == 3
+    assert model.roi_heads.box_predictor.cls_score.out_features == 2
+    assert model.roi_heads.mask_predictor.mask_fcn_logits.out_channels == 2
