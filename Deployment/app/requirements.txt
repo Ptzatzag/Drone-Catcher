@@ -6,3 +6,4 @@ torch
 numpy
 python-multipart
 torchvision
+opencv-python-headless

@@ -83,9 +83,60 @@ if uploaded_file is not None:
                 st.error(f"API error {response.status_code}")
                 st.json(response.json())
 
+
+
         except requests.exceptions.ConnectionError:
             st.error("Could not connect to FastAPI. Make sure the API server is running.")
         except requests.exceptions.Timeout:
             st.error("Request timed out.")
         except Exception as e:
             st.error(f"Unexpected error: {e}")
+
+
+st.subheader("Video detection")
+
+uploaded_video = st.file_uploader(
+    "Upload a drone video",
+    type=["mp4", "mov", "avi"],
+    key="video_upload",
+)
+
+if uploaded_video is not None:
+    st.video(uploaded_video.getvalue())
+
+    if st.button("Run video detection"):
+        files = {
+            "file": (
+                uploaded_video.name,
+                uploaded_video.getvalue(),
+                uploaded_video.type or "application/octet-stream",
+            )
+        }
+
+        try:
+            with st.spinner("Processing video. This may take several minutes..."):
+                response = requests.post(
+                    "http://app:8000/predict/video",
+                    files=files,
+                    timeout=1800,
+                )
+
+            if response.ok:
+                st.session_state["processed_video"] = response.content
+                st.success("Video processing completed")
+            else:
+                st.error(
+                    f"API error {response.status_code}: {response.text}"
+                )
+
+        except requests.exceptions.RequestException as error:
+            st.error(f"Video request failed: {error}")
+
+if "processed_video" in st.session_state:
+    st.download_button(
+        "Download processed video",
+        data=st.session_state["processed_video"],
+        file_name="predictions.mp4",
+        mime="video/mp4",
+    )
+
