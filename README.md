@@ -6,7 +6,7 @@ This repository contains the code needed to run inference. It was adapted from [
 
 ## Features
 
-- Upload JPG, JPEG, or PNG images.
+- Upload JPG, JPEG, PNG images, or mp4 videos.
 - Detect drones and display bounding boxes, confidence scores, and segmentation masks.
 - Inspect predictions as JSON.
 - Run the backend and frontend with Docker Compose.
@@ -85,6 +85,12 @@ The model configuration must match the checkpoint. The current implementation us
 - **The model download fails:** Check internet access, the Hugging Face checkpoint path, and any repository access requirements.
 - **No drones are detected:** Predictions below the confidence threshold are filtered out.
 - **A port is already in use:** Change the host port mapping in the Compose file.
+
+## Video prediction example
+
+Drone detection on a sample video using Mask R-CNN.
+
+https://github.com/user-attachments/assets/1e99f11f-87e6-46de-80b1-4bf211340fef
 
 ## License
 
