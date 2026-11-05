@@ -49,7 +49,7 @@ docker compose -f Deployment/docker-compose.yml up --build -d
 
 ### Predict
 
-Send an image as a multipart upload:
+Upload an image or a video to detect drones:
 
 ```bash
 curl -X POST http://localhost:8000/predict \
