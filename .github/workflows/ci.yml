@@ -33,43 +33,43 @@ jobs:
           python -m pytest -q
 
 
-publish:
-  needs: test
-  if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-  runs_on: ubuntu-latest
+  publish:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs_on: ubuntu-latest
 
 
-  permissions:
-    contents: read
-    packages: write
+    permissions:
+      contents: read
+      packages: write
 
-  strategy:
-    matrix:
-      include:
-        - image: drone-catcher-backend
-          contenxt: .
-          dockerfile: Deployment/app/Dockerfile
-        
-        - image: drone-catcher-frontend
-          contenxt: Deployment/frontend
-          dockerfile: Deployment/frontend/Dockerfile
+    strategy:
+      matrix:
+        include:
+          - image: drone-catcher-backend
+            contenxt: .
+            dockerfile: Deployment/app/Dockerfile
+          
+          - image: drone-catcher-frontend
+            contenxt: Deployment/frontend
+            dockerfile: Deployment/frontend/Dockerfile
 
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v4
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-  - name: Log in to github container repository
-    uses: docker/login-actions@v3
-    with: 
-      registry: ghcr.io
-      username: ${{github.actor}}
-      password: ${{secrets.GITHUB_TOKEN}}
+    - name: Log in to github container repository
+      uses: docker/login-actions@v3
+      with: 
+        registry: ghcr.io
+        username: ${{github.actor}}
+        password: ${{secrets.GITHUB_TOKEN}}
 
-  - name: Build and publish the image
-    uses: docker/build-push-action@v6
-    with:
-      context: ${{matrix.context}}
-      file: ${{matrix.dockerfile}}
-      tags: |
-        ghcr.io/ptzatzag/${{matrix.image}}:latest
-        ghcr.io/ptzatzag/${{matrix.image}}:${{github.sha}}
+    - name: Build and publish the image
+      uses: docker/build-push-action@v6
+      with:
+        context: ${{matrix.context}}
+        file: ${{matrix.dockerfile}}
+        tags: |
+          ghcr.io/ptzatzag/${{matrix.image}}:latest
+          ghcr.io/ptzatzag/${{matrix.image}}:${{github.sha}}
